@@ -18,7 +18,7 @@ public class FileDetails {
     private String fileName;
     private String fileType;
     private long createdOn;
-    private long lastModifiedOn;
+    private long lastUpdatedOn;
     private long size;
     private String path;
 

@@ -14,5 +14,5 @@ public class FileMetadataResponseDto {
     private String fileType;
     private long createdOn;
     private long lastUpdatedOn;
-    private long sizeInBytes;
+    private long size;
 }

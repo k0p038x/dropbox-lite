@@ -18,13 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -70,7 +68,7 @@ public class FileServiceImpl implements FileService {
             log.info("FileId: {}, updated file metadata", fileId);
         }
 
-        fileDetails.setLastModifiedOn(System.currentTimeMillis());
+        fileDetails.setLastUpdatedOn(System.currentTimeMillis());
         fileDetails = fileDetailsRepository.save(fileDetails);
         log.info("FileId: {}, saved updated file details entry", fileId);
         return modelMapper.map(fileDetails, FileMetadataResponseDto.class);
@@ -89,7 +87,7 @@ public class FileServiceImpl implements FileService {
             throw new ServerErrorException("file updated failed");
         }
         String fileName = metadata.getFileName();
-        String type = getFileType(multipartFile.getName());
+        String type = getFileType(multipartFile.getOriginalFilename());
         FileDetails fileDetails = FileDetails.newEntry(fileName, type, multipartFile.getSize(), path.toString());
         fileDetailsRepository.save(fileDetails);
         log.info("FileId: {}, created file", fileDetails.getFileId());
